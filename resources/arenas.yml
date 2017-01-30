@@ -1,0 +1,14 @@
+# Battles v0.0.1#dev-1 - arenas.yml config file
+arenas:
+ "0":
+  "name": "default arena #1"
+  "builder": "Builder name"
+  "spawns":
+   - "x, y, z"
+   - "x, y, z"
+ "1":
+  "name": "default arena #2"
+  "builder": "Builder name"
+  "spawns":
+   - "x, y, z"
+   - "x, y, z"

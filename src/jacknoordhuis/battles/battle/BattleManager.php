@@ -18,7 +18,7 @@
 
 namespace jacknoordhuis\battles\battle;
 
-use jacknoordhuis\battles\battle\utils\exception\DuplicateBattleIdentifierException;
+use jacknoordhuis\battles\battle\utils\exception\battle\DuplicateBattleIdentifierException;
 use jacknoordhuis\battles\BattlesLoader;
 
 class BattleManager {

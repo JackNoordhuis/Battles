@@ -16,9 +16,10 @@
  * GNU General Public License for more details.
  */
 
-namespace jacknoordhuis\battles\battle\utils\exception;
+namespace jacknoordhuis\battles\battle\utils\exception\battle;
 
 use jacknoordhuis\battles\battle\BaseBattle;
+use jacknoordhuis\battles\battle\utils\exception\BattleException;
 
 class DuplicateBattleIdentifierException extends BattleException {
 

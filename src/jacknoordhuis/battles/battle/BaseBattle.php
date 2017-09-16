@@ -57,6 +57,10 @@ abstract class BaseBattle {
 		return $this->manager;
 	}
 
+	public function getId() : string {
+		return $this->id;
+	}
+
 	public function getState() : string {
 		return $this->state;
 	}
@@ -65,15 +69,36 @@ abstract class BaseBattle {
 		return $this->state === self::STATE_PLAYING or $this->state === self::STATE_COUNTDOWN;
 	}
 
-	protected function countdown() {
+	final public function countdown() {
+		$this->onCountdown();
+	}
+
+	/**
+	 * Actions to complete on countdown
+	 */
+	protected function onCountdown() {
 
 	}
 
-	protected function start() {
+	final public function start() {
+		$this->onStart();
+	}
+
+	/**
+	 * Actions to complete on start
+	 */
+	protected function onStart() {
 
 	}
 
-	protected function end() {
+	final public function end() {
+		$this->onEnd();
+	}
+
+	/**
+	 * Actions to complete on end
+	 */
+	protected function onEnd() {
 
 	}
 

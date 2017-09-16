@@ -18,6 +18,7 @@
 
 namespace jacknoordhuis\battles\battle;
 
+use jacknoordhuis\battles\battle\utils\exception\DuplicateBattleIdentifierException;
 use jacknoordhuis\battles\BattlesLoader;
 
 class BattleManager {
@@ -42,6 +43,57 @@ class BattleManager {
 
 	public function getHeartbeat() : BattleHeartbeat {
 		return $this->heartbeat;
+	}
+
+	/**
+	 * Add a battle into the pool
+	 *
+	 * @param BaseBattle $battle
+	 *
+	 * @throws DuplicateBattleIdentifierException
+	 */
+	public function addBattle(BaseBattle $battle) {
+		if(!$this->battleExists($id = $battle->getId())) {
+			$this->battlesPool[$id] = $battle;
+		} else {
+			throw new DuplicateBattleIdentifierException($battle);
+		}
+	}
+
+	/**
+	 *
+	 * @param string $id
+	 *
+	 * @return BaseBattle|null
+	 */
+	public function getBattle(string $id) {
+		if($this->battleExists($id)) {
+			return $this->battlesPool[$id];
+		}
+		return null;
+	}
+
+	/**
+	 * Check if a battle is in the pool
+	 *
+	 * @param string $id
+	 *
+	 * @return bool
+	 */
+	public function battleExists(string $id) : bool {
+		return isset($this->battlesPool[$id]) and $this->battlesPool[$id] instanceof BaseBattle;
+	}
+
+	/**
+	 * Remove a battle from the pool
+	 *
+	 * @param string $id
+	 */
+	public function removeBattle(string $id) {
+		if($this->battleExists($id)) {
+			$this->battlesPool[$id]->end();
+			unset($this->battlesPool[$id]);
+		}
 	}
 
 	/**

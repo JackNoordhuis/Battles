@@ -1,12 +1,29 @@
 Battles
 ===================
-__PocketMine Plugin__
+__A PocketMine Plugin developed by [Jack Noordhuis](https://twitter.com/JackNoordhuis)__
 
 ### About
+Battles is an extremely extendable and customisable duels plugin designed for
+[PocketMine-MP](https://github.com/pmmp/PocketMine-MP) servers.
 
-Battles allows you setup arenas for your players to fight in fair pvp matches (basically a 1v1 plugin). You can set
-multiple spawn positions for each arena and one will be chosen randomly for every player before a battle,  which will
-keep your players on edge.
+### Where can I get the latest .phar?
+Battles is currently under heavy development and is not fully functional yet however, if you want to test the current
+in-dev plugin you can head over to the [poggit-ci](https://poggit.pmmp.io/ci/JackNoordhuis/Battles/~) and grab the
+latest build!
 
-__The content of this repo is licensed under the GNU Lesser General Public License v2.1. A full copy of the license is
-available [here](LICENSE).__
+### Licence information
+The content of this repo is licensed under the GNU Lesser General Public License (GPL) v3. A full copy of the license
+is available [here](LICENSE).
+
+>This program is free software: you can redistribute it and/or modify<br/>
+>it under the terms of the GNU General Public License as published by<br/>
+>the Free Software Foundation, either version 3 of the License, or<br/>
+>(at your option) any later version.<br/>
+>
+>This program is distributed in the hope that it will be useful,<br/>
+>but WITHOUT ANY WARRANTY; without even the implied warranty of<br/>
+>MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br/>
+>GNU General Public License for more details.<br/>
+>
+>You should have received a copy of the GNU General Public License<br/>
+>along with this program.  If not, see http://www.gnu.org/licenses/

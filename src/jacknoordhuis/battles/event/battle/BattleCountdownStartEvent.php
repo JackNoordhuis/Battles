@@ -16,31 +16,29 @@
  * GNU General Public License for more details.
  */
 
-namespace jacknoordhuis\battles\utils\exception;
+namespace jacknoordhuis\battles\event\battle;
 
-use jacknoordhuis\battles\BattlesLoader;
+use jacknoordhuis\battles\battle\BaseBattle;
+use pocketmine\event\Cancellable;
 
-class BattlesException extends \RuntimeException {
+class BattleCountdownStartEvent extends BattleEvent implements Cancellable {
 
-	/** @var BattlesLoader */
-	private $plugin;
+	public static $handlerList = null;
 
-	public function __construct(BattlesLoader $plugin, string $message = "") {
-		$this->plugin = $plugin;
-		parent::__construct($message, 0, null);
+	const CAUSE_UNKNOWN = -1;
+	const CAUSE_TICKING = 0;
+	const CAUSE_CUSTOM = 1;
+
+	/** @var int */
+	private $cause = self::CAUSE_UNKNOWN;
+
+	public function __construct(BaseBattle $battle, int $cause) {
+		$this->cause = $cause;
+		parent::__construct($battle);
 	}
 
-	public function getBattlesPlugin() : BattlesLoader {
-		return $this->plugin;
-	}
-
-	/**
-	 * Get the short name of the exception class
-	 *
-	 * @return string
-	 */
-	final public function getShortName() : string {
-		return (new \ReflectionObject($this))->getShortName();
+	public function getCause() : int {
+		return $this->cause;
 	}
 
 }

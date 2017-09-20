@@ -1,5 +1,14 @@
-# Battles plugin v0.0.1_ALPHA-dev#2 for PocketMine-MP – Settings.yml configuration file
+# Battles plugin v0.0.1_ALPHA-dev#3 for PocketMine-MP – Settings.yml configuration file
 #
 # Should we cache arena data once the config has been read (reduces startup time)? You can clear the cache at anytime
 # by deleting the data/arenas.cache.sl file.
 cache-arena-data: yes
+#
+# Countdown duration in seconds
+battle-countdown-duration: 5
+#
+# Duration of a battles play time in seconds
+battle-play-duration: 600
+#
+# Duration of post-battle glory for winner
+battle-ended-duration: 10

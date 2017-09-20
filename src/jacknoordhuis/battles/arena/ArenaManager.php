@@ -34,6 +34,9 @@ class ArenaManager {
 	/** @var Arena[] */
 	private $arenasPool;
 
+	/** @var Arena[] */
+	private $availableArenaPool = [];
+
 	const ARENA_FILE_PATH = DIRECTORY_SEPARATOR . "arenas.json";
 	const CACHED_ARENAS_FILE_PATH = BattlesLoader::DATA_DIRECTORY . DIRECTORY_SEPARATOR . "arenas.cache.sl";
 
@@ -43,6 +46,8 @@ class ArenaManager {
 
 		$this->loadFromFile();
 		$this->cacheArenaData();
+
+		$this->availableArenaPool = $this->arenasPool; // keep track of available arenas in a second array
 	}
 
 	/**
@@ -86,6 +91,8 @@ class ArenaManager {
 	}
 
 	/**
+	 * Add an arena to the pool
+	 *
 	 * @param string $name
 	 * @param string $display
 	 * @param string $author
@@ -93,6 +100,78 @@ class ArenaManager {
 	 */
 	public function addArena(string $name, string $display, string $author, array $spawns) {
 		$this->arenasPool[$name] = new Arena($name, $display, $author, $spawns);
+	}
+
+	/**
+	 * Check if an arena exists in the pool
+	 *
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public function arenaExists(string $name) : bool {
+		return isset($this->arenasPool[$name]) and $this->arenasPool[$name] instanceof Arena;
+	}
+
+	/**
+	 * Get a specific arena from the pool
+	 *
+	 * @param string $name
+	 *
+	 * @return Arena|null
+	 */
+	public function getArena(string $name) {
+		if($this->arenaExists($name)) {
+			return $this->arenasPool[$name];
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get a random available arena from the pool
+	 *
+	 * @return Arena|null
+	 */
+	public function getAvailableArena() {
+		if(($arena = $this->availableArenaPool[array_rand($this->availableArenaPool)]) instanceof Arena) {
+			return $arena;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Check if an arena is available for use
+	 *
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public function isArenaAvailable(string $name) : bool {
+		return $this->arenaExists($name) and isset($this->availableArenaPool[$name]) and $this->availableArenaPool[$name] instanceof Arena;
+	}
+
+	/**
+	 * Remove an arena from the pool of available arenas
+	 *
+	 * @param string $name
+	 */
+	public function setArenaInUse(string $name) {
+		if($this->isArenaAvailable($name)) {
+			unset($this->availableArenaPool[$name]);
+		}
+	}
+
+	/**
+	 * Add an arena to the available arena pool
+	 *
+	 * @param string $name
+	 */
+	public function addAvailableArena(string $name) {
+		if($this->arenaExists($name)) {
+			$this->availableArenaPool[$name] = $this->arenasPool[$name];
+		}
 	}
 
 }

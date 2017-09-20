@@ -31,9 +31,21 @@ class BattleCreationEvent extends BattleManagerEvent {
 	/** @var string */
 	private $battleClass;
 
-	public function __construct(BattleManager $manager, string $baseBattleClass, string $battleClass) {
+	/** @var int */
+	private $countdownDuration;
+
+	/** @var int */
+	private $playingDuration;
+
+	/** @var int */
+	private $endedDuration;
+
+	public function __construct(BattleManager $manager, string $baseBattleClass, string $battleClass, int $countdownDuration, int $playingDuration, int $endedDuration) {
 		$this->baseBattleClass = $baseBattleClass;
 		$this->battleClass = $battleClass;
+		$this->countdownDuration = $countdownDuration;
+		$this->playingDuration = $playingDuration;
+		$this->endedDuration = $endedDuration;
 		parent::__construct($manager);
 	}
 
@@ -73,6 +85,60 @@ class BattleCreationEvent extends BattleManagerEvent {
 		}
 
 		$this->battleClass = $class;
+	}
+
+	/**
+	 * Get the countdown duration for the battle
+	 *
+	 * @return int
+	 */
+	public function getCountdownDuration() : int {
+		return $this->countdownDuration;
+	}
+
+	/**
+	 * Set the countdown duration for the battle
+	 *
+	 * @param int $duration
+	 */
+	public function setCountdownDuration(int $duration) {
+		$this->countdownDuration = $duration;
+	}
+
+	/**
+	 * Get the playing duration for the battle
+	 *
+	 * @return int
+	 */
+	public function getPlayingDuration() : int {
+		return $this->playingDuration;
+	}
+
+	/**
+	 * Set the playing duration for the battle
+	 *
+	 * @param int $duration
+	 */
+	public function setPlayingDuration(int $duration) {
+		$this->playingDuration = $duration;
+	}
+
+	/**
+	 * Get the ended duration for the battle
+	 *
+	 * @return int
+	 */
+	public function getEndedDuration() : int {
+		return $this->endedDuration;
+	}
+
+	/**
+	 * Set the ended duration of the battle
+	 *
+	 * @param int $duration
+	 */
+	public function setEndedDuration(int $duration) {
+		$this->endedDuration = $duration;
 	}
 
 }

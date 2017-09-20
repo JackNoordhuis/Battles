@@ -16,31 +16,15 @@
  * GNU General Public License for more details.
  */
 
-namespace jacknoordhuis\battles\utils\exception;
+namespace jacknoordhuis\battles\battle\utils\exception\battle;
 
-use jacknoordhuis\battles\BattlesLoader;
+use jacknoordhuis\battles\battle\BaseBattle;
+use jacknoordhuis\battles\battle\utils\exception\BattleException;
 
-class BattlesException extends \RuntimeException {
+class UnhandledBattleStageException extends BattleException {
 
-	/** @var BattlesLoader */
-	private $plugin;
-
-	public function __construct(BattlesLoader $plugin, string $message = "") {
-		$this->plugin = $plugin;
-		parent::__construct($message, 0, null);
-	}
-
-	public function getBattlesPlugin() : BattlesLoader {
-		return $this->plugin;
-	}
-
-	/**
-	 * Get the short name of the exception class
-	 *
-	 * @return string
-	 */
-	final public function getShortName() : string {
-		return (new \ReflectionObject($this))->getShortName();
+	public function __construct(BaseBattle $battle) {
+		parent::__construct($battle, "Unhandled battle stage '{$battle->getStage()}' when trying to tick battle!");
 	}
 
 }

@@ -34,7 +34,19 @@ abstract class BattlesEvent extends Event {
 		return $this->plugin;
 	}
 
-	public function getShortName() : string {
+	/**
+	 * Short hand method for calling the event
+	 */
+	final public function call() {
+		$this->plugin->getServer()->getPluginManager()->callEvent($this);
+	}
+
+	/**
+	 * Get the short name of the event class
+	 *
+	 * @return string
+	 */
+	final public function getShortName() : string {
 		return (new \ReflectionObject($this))->getShortName();
 	}
 

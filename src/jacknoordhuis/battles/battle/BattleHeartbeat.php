@@ -18,6 +18,7 @@
 
 namespace jacknoordhuis\battles\battle;
 
+use jacknoordhuis\battles\utils\exception\BattlesException;
 use pocketmine\scheduler\PluginTask;
 
 class BattleHeartbeat extends PluginTask {
@@ -43,8 +44,11 @@ class BattleHeartbeat extends PluginTask {
 	 */
 	public function onRun(int $tick) {
 		foreach($this->manager->getBattles() as $battle) {
-			if(!$battle->hasEnded()) {
+			try {
 				$battle->tick($tick);
+			} catch(BattlesException $e) {
+				($logger = $this->manager->getPlugin()->getLogger())->debug("Encountered exception '{$e->getShortName()}' when attempting to tick battle! Details:");
+				$logger->logException($e);
 			}
 		}
 	}

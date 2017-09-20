@@ -1,5 +1,5 @@
 name: Battles
 description: Extremely configurable and extendable plugin that allows you to create fair battles between players!
 main: jacknoordhuis\battles\BattlesLoader
-version: 0.0.1_ALPHA-dev#2
+version: 0.0.1_ALPHA-dev#23
 api: 3.0.0-ALPHA8

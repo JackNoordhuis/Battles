@@ -1,4 +1,4 @@
-# Battles plugin v0.0.1_ALPHA-dev#3 for PocketMine-MP – Settings.yml configuration file
+# Battles plugin v0.0.1_ALPHA-dev#4 for PocketMine-MP – Settings.yml configuration file
 #
 # Should we cache arena data once the config has been read (reduces startup time)? You can clear the cache at anytime
 # by deleting the data/arenas.cache.sl file.

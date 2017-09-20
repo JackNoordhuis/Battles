@@ -54,7 +54,7 @@ class BattleCreationEvent extends BattleManagerEvent {
 	}
 
 	/**
-	 * Set the base class that all battles and future base classes for this event must extend
+	 * Set the base class that all battle classes and future base battle classes for this event must extend
 	 *
 	 * @param string $class
 	 *
@@ -62,7 +62,7 @@ class BattleCreationEvent extends BattleManagerEvent {
 	 */
 	public function setBaseBattleClass(string $class) {
 		if(!is_a($class, $this->baseBattleClass, true)) {
-			throw new BattlesEventException($this, "Base class {$class} must extend {$this->baseBattleClass}.");
+			throw new BattlesEventException($this, "Battle class {$class} must extend {$this->baseBattleClass}.");
 		}
 
 		$this->baseBattleClass = $class;

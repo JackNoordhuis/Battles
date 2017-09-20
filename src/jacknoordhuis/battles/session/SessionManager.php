@@ -19,6 +19,7 @@
 namespace jacknoordhuis\battles\session;
 
 use jacknoordhuis\battles\BattlesLoader;
+use jacknoordhuis\battles\event\session\SessionCreationEvent;
 use pocketmine\Player;
 
 class SessionManager {
@@ -45,7 +46,9 @@ class SessionManager {
 	}
 
 	public function openSession(Player $player) {
-		$this->sessionPool[spl_object_hash($player)] = new PlayerSession($this, $player);
+		($ev = new SessionCreationEvent($this, $player, PlayerSession::class, PlayerSession::class))->call();
+		$class = $ev->getSessionClass();
+		$this->sessionPool[spl_object_hash($player)] = new $class($this, $player);
 	}
 
 	/**

@@ -16,22 +16,22 @@
  * GNU General Public License for more details.
  */
 
-namespace jacknoordhuis\battles\event\battle;
+namespace jacknoordhuis\battles\event\session;
 
-use jacknoordhuis\battles\battle\BattleManager;
 use jacknoordhuis\battles\event\BattlesEvent;
+use jacknoordhuis\battles\session\SessionManager;
 
-abstract class BattleManagerEvent extends BattlesEvent {
+abstract class SessionManagerEvent extends BattlesEvent {
 
-	/** @var string */
+	/** @var SessionManager */
 	private $manager;
 
-	public function __construct(BattleManager $manager) {
+	public function __construct(SessionManager $manager) {
 		$this->manager = $manager;
 		parent::__construct($manager->getPlugin());
 	}
 
-	public function getBattleManager() : BattleManager {
+	public function getSessionManager() : SessionManager {
 		return $this->manager;
 	}
 

@@ -22,6 +22,7 @@ use jacknoordhuis\battles\arena\ArenaManager;
 use jacknoordhuis\battles\battle\BattleManager;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
+use pocketmine\utils\TextFormat;
 
 /**
  * Battles plugin for PocketMine-MP
@@ -47,6 +48,8 @@ class BattlesLoader extends PluginBase {
 		$this->loadConfigs();
 		$this->setArenaManager();
 		$this->setBattleManager();
+
+		$this->getLogger()->info(TextFormat::AQUA . $this->getDescription()->getFullName() . TextFormat::GREEN . " by " . TextFormat::YELLOW . implode(TextFormat::GRAY . ", ", $this->getDescription()->getAuthors()) . TextFormat::GREEN . " has been enabled successfully!");
 	}
 
 	/**
@@ -62,6 +65,10 @@ class BattlesLoader extends PluginBase {
 
 		$this->saveResource(self::SETTINGS_FILE);
 		$this->settings = new Config($this->getDataFolder() . self::SETTINGS_FILE);
+	}
+
+	public function onDisable() {
+		$this->getLogger()->info(TextFormat::AQUA . $this->getDescription()->getFullName() . TextFormat::GOLD . " by " . TextFormat::YELLOW . implode(TextFormat::GRAY . ", ", $this->getDescription()->getAuthors()) . TextFormat::GOLD . " has been disabled.");
 	}
 
 	public function getSettings() : Config {

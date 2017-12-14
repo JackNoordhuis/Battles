@@ -3,4 +3,4 @@ description: Extremely configurable and extendable plugin that allows you to cre
 version: 0.0.1_ALPHA-dev#4
 author: Jack Noordhuis
 main: jacknoordhuis\battles\BattlesLoader
-api: 3.0.0-ALPHA8
+api: 3.0.0-ALPHA10

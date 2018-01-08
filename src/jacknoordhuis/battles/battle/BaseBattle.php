@@ -181,7 +181,7 @@ abstract class BaseBattle {
 	 */
 	final public function startCountdown(int $cause = BattleCountdownStartEvent::CAUSE_UNKNOWN) {
 		($ev = new BattleCountdownStartEvent($this, $cause))->call(); // call the battle countdown start event
-		if($ev->isCancelled()) {
+		if($ev->isCancelled() and $ev->getCause() !== BattleCountdownStartEvent::CAUSE_TICKING) {
 			return;
 		}
 		$this->onCountdownStart(); // do all the countdown start things
@@ -216,7 +216,7 @@ abstract class BaseBattle {
 	 */
 	final public function start(int $cause = BattleStartEvent::CAUSE_UNKNOWN) {
 		($ev = new BattleStartEvent($this, $cause))->call(); // call the battle start event
-		if($ev->isCancelled()) {
+		if($ev->isCancelled() and $ev->getCause() !== BattleStartEvent::CAUSE_TICKING) {
 			return;
 		}
 		$this->onStart(); // do all the start things
@@ -250,7 +250,7 @@ abstract class BaseBattle {
 	 */
 	final public function end(int $cause = BattleEndEvent::CAUSE_UNKNOWN) {
 		($ev = new BattleEndEvent($this, $cause))->call(); // call the battle stop event
-		if($ev->isCancelled()) {
+		if($ev->isCancelled() and $ev->getCause() !== BattleEndEvent::CAUSE_TICKING) {
 			return;
 		}
 		$this->onEnd();

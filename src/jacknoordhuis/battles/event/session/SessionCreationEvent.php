@@ -51,7 +51,7 @@ class SessionCreationEvent extends SessionManagerEvent {
 	}
 
 	/**
-	 * Set the base class that all session classes and future base session classes for this event must extend
+	 * Set the base class that all session classes and future base session classes for this event instance must extend
 	 *
 	 * @param string $class
 	 */

@@ -54,7 +54,7 @@ class BattleCreationEvent extends BattleManagerEvent {
 	}
 
 	/**
-	 * Set the base class that all battle classes and future base battle classes for this event must extend
+	 * Set the base class that all battle classes and future base battle classes for this event instance must extend
 	 *
 	 * @param string $class
 	 *

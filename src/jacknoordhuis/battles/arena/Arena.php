@@ -59,7 +59,7 @@ class Arena {
 	/**
 	 * @return Vector3
 	 */
-	public function getRandomSpawn() {
+	public function getRandomSpawn() : Vector3 {
 		return $this->spawnPositions[array_rand($this->spawnPositions)];
 	}
 

@@ -52,7 +52,7 @@ class BattleManager {
 	 *
 	 * @throws DuplicateBattleIdentifierException
 	 */
-	public function addBattle(BaseBattle $battle) {
+	public function addBattle(BaseBattle $battle) : void {
 		if(!$this->battleExists($id = $battle->getId())) {
 			$this->battlesPool[$id] = $battle;
 		} else {
@@ -66,7 +66,7 @@ class BattleManager {
 	 *
 	 * @return BaseBattle|null
 	 */
-	public function getBattle(string $id) {
+	public function getBattle(string $id) : ?BaseBattle {
 		if($this->battleExists($id)) {
 			return $this->battlesPool[$id];
 		}
@@ -89,7 +89,7 @@ class BattleManager {
 	 *
 	 * @param string $id
 	 */
-	public function removeBattle(string $id) {
+	public function removeBattle(string $id) : void {
 		if($this->battleExists($id)) {
 			$this->battlesPool[$id]->end();
 			unset($this->battlesPool[$id]);

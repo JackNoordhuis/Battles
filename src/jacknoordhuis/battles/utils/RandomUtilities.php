@@ -26,7 +26,7 @@ class RandomUtilities {
 	 * @param array $array
 	 * @param callable $func
 	 */
-	public static function mapArrayWithCallable(array $array, Callable $func) {
+	public static function mapArrayWithCallable(array $array, Callable $func) : void {
 		foreach($array as $key => $value) {
 			call_user_func($func, $value);
 		}
@@ -40,7 +40,7 @@ class RandomUtilities {
 	 *
 	 * @return array
 	 */
-	public static function mapArrayWithCallableAndReturn(array $array, Callable $func) {
+	public static function mapArrayWithCallableAndReturn(array $array, Callable $func) : array {
 		$result = [];
 		foreach($array as $key => $value) {
 			$result[$key] = call_user_func($func, $value);

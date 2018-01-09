@@ -37,11 +37,11 @@ class SessionEventListener implements Listener {
 		return $this->manager;
 	}
 
-	public function onLogin(PlayerLoginEvent $event) {
+	public function onLogin(PlayerLoginEvent $event) : void {
 		$this->manager->openSession($event->getPlayer());
 	}
 
-	public function onQuit(PlayerQuitEvent $event) {
+	public function onQuit(PlayerQuitEvent $event) : void {
 		$this->manager->closeSession($event->getPlayer());
 	}
 

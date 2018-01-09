@@ -33,8 +33,8 @@ class BattleException extends BattleManagerException {
 	/**
 	 * @return BaseBattle|null
 	 */
-	public function getBattle() {
-		return $this->getBattlesPlugin()->getBattleManager()->getBattle($this->battleId);
+	public function getBattle() : ?BaseBattle {
+		return $this->getBattleManager()->getBattle($this->battleId);
 	}
 
 }

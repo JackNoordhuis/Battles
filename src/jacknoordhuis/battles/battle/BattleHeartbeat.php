@@ -42,7 +42,7 @@ class BattleHeartbeat extends PluginTask {
 	 *
 	 * @param int $tick
 	 */
-	public function onRun(int $tick) {
+	public function onRun(int $tick) : void {
 		foreach($this->manager->getBattles() as $battle) {
 			try {
 				$battle->tick($tick);

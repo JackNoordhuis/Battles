@@ -45,7 +45,7 @@ class SessionManager {
 		return $this->plugin;
 	}
 
-	public function openSession(Player $player) {
+	public function openSession(Player $player) : void {
 		($ev = new SessionCreationEvent($this, $player, PlayerSession::class, PlayerSession::class))->call();
 		$class = $ev->getSessionClass();
 		$this->sessionPool[spl_object_hash($player)] = new $class($this, $player);
@@ -68,7 +68,7 @@ class SessionManager {
 	 *
 	 * @return PlayerSession|null
 	 */
-	public function getSession($player) {
+	public function getSession($player) : ?PlayerSession {
 		if(!($player instanceof Player)) {
 			$player = $this->plugin->getServer()->getPlayerExact($player);
 		}
@@ -82,7 +82,7 @@ class SessionManager {
 	/**
 	 * @param Player|string $player
 	 */
-	public function closeSession($player) {
+	public function closeSession($player) : void {
 		if(!($player instanceof Player)) {
 			$player = $this->plugin->getServer()->getPlayerExact($player);
 		}

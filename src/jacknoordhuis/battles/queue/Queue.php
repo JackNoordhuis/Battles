@@ -45,7 +45,12 @@ class Queue {
 		return $this->id;
 	}
 
-	public function getRandomQueuedPlayers(int $count = 2) {
+	/**
+	 * @param int $count
+	 *
+	 * @return PlayerSession[]
+	 */
+	public function getRandomQueuedPlayers(int $count = 2) : array {
 		$indexes = array_rand($this->queuedPlayers, $count);
 		/** @var PlayerSession[] $players */
 		$players = [];
@@ -58,6 +63,8 @@ class Queue {
 				return $this->getRandomQueuedPlayers($count);
 			}
 		}
+
+		return $players;
 	}
 
 	/**
@@ -108,4 +115,5 @@ class Queue {
 			$this->getManager()->getPlugin()->getLogger()->debug("Failed to unqueue {$count} players from queue with id {$this->getId()}");
 		}
 	}
+
 }

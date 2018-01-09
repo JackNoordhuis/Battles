@@ -60,7 +60,7 @@ class BattleCreationEvent extends BattleManagerEvent {
 	 *
 	 * @throws BattlesEventException
 	 */
-	public function setBaseBattleClass(string $class) {
+	public function setBaseBattleClass(string $class) : void {
 		if(!is_a($class, $this->baseBattleClass, true)) {
 			throw new BattlesEventException($this, "Battle class {$class} must extend {$this->baseBattleClass}.");
 		}
@@ -79,7 +79,7 @@ class BattleCreationEvent extends BattleManagerEvent {
 	 *
 	 * @throws BattlesEventException
 	 */
-	public function setBattleClass(string $class) {
+	public function setBattleClass(string $class) : void {
 		if(!is_a($class, $this->baseBattleClass, true)) {
 			throw new BattlesEventException($this, "Base class {$class} must extend {$this->baseBattleClass}.");
 		}
@@ -101,7 +101,7 @@ class BattleCreationEvent extends BattleManagerEvent {
 	 *
 	 * @param int $duration
 	 */
-	public function setCountdownDuration(int $duration) {
+	public function setCountdownDuration(int $duration) : void {
 		$this->countdownDuration = $duration;
 	}
 
@@ -119,7 +119,7 @@ class BattleCreationEvent extends BattleManagerEvent {
 	 *
 	 * @param int $duration
 	 */
-	public function setPlayingDuration(int $duration) {
+	public function setPlayingDuration(int $duration) : void {
 		$this->playingDuration = $duration;
 	}
 
@@ -137,7 +137,7 @@ class BattleCreationEvent extends BattleManagerEvent {
 	 *
 	 * @param int $duration
 	 */
-	public function setEndedDuration(int $duration) {
+	public function setEndedDuration(int $duration) : void {
 		$this->endedDuration = $duration;
 	}
 

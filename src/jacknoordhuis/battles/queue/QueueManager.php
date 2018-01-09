@@ -66,7 +66,7 @@ class QueueManager {
 	 *
 	 * @return Queue|null
 	 */
-	public function getQueue(string $id) : ? Queue {
+	public function getQueue(string $id) : ?Queue {
 		return $this->queuePool[$id] ?? null;
 	}
 

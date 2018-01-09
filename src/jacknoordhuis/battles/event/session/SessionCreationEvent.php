@@ -55,7 +55,7 @@ class SessionCreationEvent extends SessionManagerEvent {
 	 *
 	 * @param string $class
 	 */
-	public function setBaseSessionClass(string $class) {
+	public function setBaseSessionClass(string $class) : void {
 		if(!is_a($class, $this->baseSessionClass, true)) {
 			throw new BattlesEventException($this, "Base class '{$class}' must extend '{$this->baseSessionClass}'.");
 		}
@@ -72,7 +72,7 @@ class SessionCreationEvent extends SessionManagerEvent {
 	 *
 	 * @param string $class
 	 */
-	public function setSessionClass(string $class) {
+	public function setSessionClass(string $class) : void {
 		if(!is_a($class, $this->baseSessionClass, true)) {
 			throw new BattlesEventException($this, "Session class '{$class}' must extend '{$this->baseSessionClass}'.");
 		}

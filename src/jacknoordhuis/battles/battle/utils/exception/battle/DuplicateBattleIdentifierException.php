@@ -24,7 +24,7 @@ use jacknoordhuis\battles\battle\utils\exception\BattleException;
 class DuplicateBattleIdentifierException extends BattleException {
 
 	public function __construct(BaseBattle $battle) {
-		parent::__construct($battle, "Could not add battle to pool due to  duplicate ID! ID: {$battle->getId()}");
+		parent::__construct($battle, "Could not add battle to pool due to duplicate ID! ID: {$battle->getId()}");
 	}
 
 }

@@ -75,14 +75,14 @@ class PlayerSession {
 	/**
 	 * @return null|string
 	 */
-	public function getQueueId() {
+	public function getQueueId() : ?string {
 		return $this->queueId;
 	}
 
 	/**
 	 * @return null|string
 	 */
-	public function getBattleId() {
+	public function getBattleId() : ?string {
 		return $this->battleId;
 	}
 
@@ -163,7 +163,7 @@ class PlayerSession {
 	 *
 	 * @param Queue $queue
 	 */
-	public function addToQueue(Queue $queue) {
+	public function addToQueue(Queue $queue) : void {
 		$this->queueId = $queue->getId();
 		$queue->queuePlayer($this);
 	}
@@ -173,20 +173,20 @@ class PlayerSession {
 	 *
 	 * @param BaseBattle $battle
 	 */
-	public function addToBattle(BaseBattle $battle) {
+	public function addToBattle(BaseBattle $battle) : void {
 		$this->battleId = $battle->getId();
 	}
 
 	/**
 	 * Remove the player from their current queue
 	 */
-	public function removeFromQueue() {
+	public function removeFromQueue() : void {
 		if($this->isQueued()) {
 			$this->getQueue()->unqueuePlayer($this);
 		}
 	}
 
-	public function onQuit() {
+	public function onQuit() : void {
 	}
 
 }

@@ -22,15 +22,16 @@ use jacknoordhuis\battles\queue\Queue;
 
 class QueueException extends QueueManagerException {
 
-	/** @var Queue */
-	private $queue;
+	/** @var string */
+	private $queueId;
 
 	public function __construct(Queue $queue, string $message = "") {
+		$this->queueId = $queue->getId();
 		parent::__construct($queue->getManager(), $message);
 	}
 
-	public function getQueue() : Queue {
-		return $this->queue;
+	public function getQueue() : ?Queue {
+		return $this->getQueueManager()->getQueue($this->queueId);
 	}
 
 }

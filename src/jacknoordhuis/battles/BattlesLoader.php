@@ -48,7 +48,7 @@ class BattlesLoader extends PluginBase {
 	/* Main battles configuration file */
 	const SETTINGS_FILE = "Settings.yml";
 
-	public function onEnable() {
+	public function onEnable() : void {
 		$this->loadConfigs();
 		$this->setArenaManager();
 		$this->setBattleManager();
@@ -60,7 +60,7 @@ class BattlesLoader extends PluginBase {
 	/**
 	 * Save and create required directories and files
 	 */
-	protected function loadConfigs() {
+	protected function loadConfigs() : void {
 		if(!is_dir($path = $this->getDataFolder())) {
 			@mkdir($path);
 		}
@@ -72,7 +72,7 @@ class BattlesLoader extends PluginBase {
 		$this->settings = new Config($this->getDataFolder() . self::SETTINGS_FILE);
 	}
 
-	public function onDisable() {
+	public function onDisable() : void {
 		$this->getLogger()->info(TextFormat::AQUA . $this->getDescription()->getFullName() . TextFormat::GOLD . " by " . TextFormat::YELLOW . implode(TextFormat::GRAY . ", ", $this->getDescription()->getAuthors()) . TextFormat::GOLD . " has been disabled.");
 	}
 
@@ -83,7 +83,7 @@ class BattlesLoader extends PluginBase {
 	/**
 	 * Set the arena manager
 	 */
-	protected function setArenaManager() {
+	protected function setArenaManager() : void {
 		if(!($this->arenaManager instanceof ArenaManager)) {
 			$this->arenaManager = new ArenaManager($this);
 		}
@@ -92,7 +92,7 @@ class BattlesLoader extends PluginBase {
 	/**
 	 * Set the battle manager
 	 */
-	protected function setBattleManager() {
+	protected function setBattleManager() : void {
 		if(!($this->battleManager instanceof BattleManager)) {
 			$this->battleManager = new BattleManager($this);
 		}
@@ -101,7 +101,7 @@ class BattlesLoader extends PluginBase {
 	/**
 	 * Set the queue manager
 	 */
-	protected function setQueueManager() {
+	protected function setQueueManager() : void {
 		if(!($this->queueManager instanceof QueueManager)) {
 			$this->queueManager = new QueueManager($this);
 		}

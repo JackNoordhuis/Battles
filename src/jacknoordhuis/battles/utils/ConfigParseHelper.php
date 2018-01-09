@@ -52,9 +52,10 @@ class ConfigParseHelper {
 	 * Get a vector from a string \o/
 	 *
 	 * @param string $string
+	 *
 	 * @return Vector3
 	 */
-	public static function parseVector(string $string) {
+	public static function parseVector(string $string) : Vector3 {
 		$temp = explode(",", str_replace(" ", "", $string));
 		return new Vector3((float) $temp[0], (float) $temp[1], (float) $temp[2]);
 	}
@@ -66,7 +67,7 @@ class ConfigParseHelper {
 	 *
 	 * @return WeakPosition
 	 */
-	public static function parsePosition(string $string) {
+	public static function parsePosition(string $string) : WeakPosition {
 		$temp = explode(",", str_replace(" ", "", $string));
 		$server = Server::getInstance();
 		return new WeakPosition((float) $temp[0], (float) $temp[1], (float) $temp[2], $server->getLevel($temp[3]) ?? $server->getDefaultLevel());
@@ -77,9 +78,9 @@ class ConfigParseHelper {
 	 *
 	 * @param array $strings
 	 *
-	 * @return array
+	 * @return Vector3[]
 	 */
-	public static function parseVectors(array $strings) {
+	public static function parseVectors(array $strings) : array {
 		return RandomUtilities::mapArrayWithCallableAndReturn($strings, ["ConfigParseHelper::parseVector"]);
 	}
 
@@ -88,9 +89,9 @@ class ConfigParseHelper {
 	 *
 	 * @param array $strings
 	 *
-	 * @return array
+	 * @return WeakPosition[]
 	 */
-	public static function parsePositions(array $strings) {
+	public static function parsePositions(array $strings) : array {
 		return RandomUtilities::mapArrayWithCallableAndReturn($strings, ["ConfigParseHelper::parsePosition"]);
 	}
 

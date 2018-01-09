@@ -60,7 +60,7 @@ class ArenaManager {
 	/**
 	 * @param bool $async
 	 */
-	private function cacheArenaData($async = true) {
+	private function cacheArenaData(bool $async = true) : void {
 		if($this->cacheArenas and !is_file($path = $this->plugin->getDataFolder() . self::CACHED_ARENAS_FILE_PATH)) {
 			$data = serialize($this->arenasPool);
 			if($async) {
@@ -74,7 +74,7 @@ class ArenaManager {
 	/**
 	 * Load arenas from the config
 	 */
-	private function loadFromFile() {
+	private function loadFromFile() : void {
 		if($this->cacheArenas and is_file($path = $this->plugin->getDataFolder() . self::CACHED_ARENAS_FILE_PATH)) { // load the cache
 			$this->arenasPool = unserialize(file_get_contents($path));
 		} else { // load the arena data from the config
@@ -98,7 +98,7 @@ class ArenaManager {
 	 * @param string $author
 	 * @param Position[] $spawns
 	 */
-	public function addArena(string $name, string $display, string $author, array $spawns) {
+	public function addArena(string $name, string $display, string $author, array $spawns) : void {
 		$this->arenasPool[$name] = new Arena($name, $display, $author, $spawns);
 	}
 
@@ -120,7 +120,7 @@ class ArenaManager {
 	 *
 	 * @return Arena|null
 	 */
-	public function getArena(string $name) {
+	public function getArena(string $name) : ?Arena {
 		if($this->arenaExists($name)) {
 			return $this->arenasPool[$name];
 		}
@@ -133,7 +133,7 @@ class ArenaManager {
 	 *
 	 * @return Arena|null
 	 */
-	public function getAvailableArena() {
+	public function getAvailableArena() : ?Arena {
 		if(($arena = $this->availableArenaPool[array_rand($this->availableArenaPool)]) instanceof Arena) {
 			return $arena;
 		}
@@ -157,7 +157,7 @@ class ArenaManager {
 	 *
 	 * @param string $name
 	 */
-	public function setArenaInUse(string $name) {
+	public function setArenaInUse(string $name) : void {
 		if($this->isArenaAvailable($name)) {
 			unset($this->availableArenaPool[$name]);
 		}
@@ -168,7 +168,7 @@ class ArenaManager {
 	 *
 	 * @param string $name
 	 */
-	public function addAvailableArena(string $name) {
+	public function addAvailableArena(string $name) : void {
 		if($this->arenaExists($name)) {
 			$this->availableArenaPool[$name] = $this->arenasPool[$name];
 		}

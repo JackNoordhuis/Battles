@@ -109,7 +109,7 @@ abstract class BaseBattle {
 	 *
 	 * @param int $duration
 	 */
-	public function setCountdownDuration(int $duration) {
+	public function setCountdownDuration(int $duration) : void {
 		$this->countdownDuration = $duration;
 	}
 
@@ -127,7 +127,7 @@ abstract class BaseBattle {
 	 *
 	 * @param int $duration
 	 */
-	public function setPlayingDuration(int $duration) {
+	public function setPlayingDuration(int $duration) : void {
 		$this->playingDuration = $duration;
 	}
 
@@ -145,7 +145,7 @@ abstract class BaseBattle {
 	 *
 	 * @param int $duration
 	 */
-	public function setEndedDuration(int $duration) {
+	public function setEndedDuration(int $duration) : void {
 		$this->endedDuration = $duration;
 	}
 
@@ -161,7 +161,7 @@ abstract class BaseBattle {
 	/**
 	 * Actions to complete when the battle is ticked during the waiting stage
 	 */
-	protected function doWaitingTick() {
+	protected function doWaitingTick() : void {
 		$this->broadcastTip("Waiting for players...");
 	}
 
@@ -179,7 +179,7 @@ abstract class BaseBattle {
 	 *
 	 * @param int $cause
 	 */
-	final public function startCountdown(int $cause = BattleCountdownStartEvent::CAUSE_UNKNOWN) {
+	final public function startCountdown(int $cause = BattleCountdownStartEvent::CAUSE_UNKNOWN) : void {
 		($ev = new BattleCountdownStartEvent($this, $cause))->call(); // call the battle countdown start event
 		if($ev->isCancelled() and $ev->getCause() !== BattleCountdownStartEvent::CAUSE_TICKING) {
 			return;
@@ -193,14 +193,14 @@ abstract class BaseBattle {
 	 * NOTE: If overwritten by child classes this parent function should still
 	 * be called to prevent any unexpected behaviour.
 	 */
-	protected function onCountdownStart() {
+	protected function onCountdownStart() : void {
 		$this->stage = self::STAGE_COUNTDOWN;
 	}
 
 	/**
 	 * Actions to complete when the battle is ticked during the countdown stage
 	 */
-	protected function doCountdownTick() {
+	protected function doCountdownTick() : void {
 		if($this->countdownTime < $this->countdownDuration) {
 			$this->broadcastTitle("Battle starts in {$this->countdownTime}");
 			$this->countdownTime++;
@@ -214,7 +214,7 @@ abstract class BaseBattle {
 	 *
 	 * @param int $cause
 	 */
-	final public function start(int $cause = BattleStartEvent::CAUSE_UNKNOWN) {
+	final public function start(int $cause = BattleStartEvent::CAUSE_UNKNOWN) : void {
 		($ev = new BattleStartEvent($this, $cause))->call(); // call the battle start event
 		if($ev->isCancelled() and $ev->getCause() !== BattleStartEvent::CAUSE_TICKING) {
 			return;
@@ -228,14 +228,14 @@ abstract class BaseBattle {
 	 * NOTE: If overwritten by child classes this parent function should still
 	 * be called to prevent any unexpected behaviour.
 	 */
-	protected function onStart() {
+	protected function onStart() : void {
 		$this->stage = self::STAGE_PLAYING;
 	}
 
 	/**
 	 * Actions to complete when the battle is ticked during the playing stage
 	 */
-	protected function doPlayingTick() {
+	protected function doPlayingTick() : void {
 		if($this->playingTime < $this->playingDuration) {
 			$this->broadcastTitle("Battle ended!");
 		} else {
@@ -248,7 +248,7 @@ abstract class BaseBattle {
 	 *
 	 * @param int $cause
 	 */
-	final public function end(int $cause = BattleEndEvent::CAUSE_UNKNOWN) {
+	final public function end(int $cause = BattleEndEvent::CAUSE_UNKNOWN) : void {
 		($ev = new BattleEndEvent($this, $cause))->call(); // call the battle stop event
 		if($ev->isCancelled() and $ev->getCause() !== BattleEndEvent::CAUSE_TICKING) {
 			return;
@@ -262,14 +262,14 @@ abstract class BaseBattle {
 	 * NOTE: If overwritten by child classes this parent function should still
 	 * be called to prevent any unexpected behaviour.
 	 */
-	protected function onEnd() {
+	protected function onEnd() : void {
 		$this->stage = self::STAGE_ENDED;
 	}
 
 	/**
 	 * Actions to complete when the battle is ticked during the ended stage
 	 */
-	protected function doEndedTick() {
+	protected function doEndedTick() : void {
 		if($this->endedTime < $this->endedDuration) {
 			$this->endedTime++;
 		} else {
@@ -283,7 +283,7 @@ abstract class BaseBattle {
 		}
 	}
 
-	public function close() {
+	public function close() : void {
 		if(!$this->stage === self::STAGE_CLOSED) {
 			$this->stage = self::STAGE_CLOSED;
 			$this->manager->getPlugin()->getArenaManager()->addAvailableArena($this->arenaName);
@@ -296,7 +296,7 @@ abstract class BaseBattle {
 	 *
 	 * @param $tick
 	 */
-	public function tick(int $tick) {
+	public function tick(int $tick) : void {
 		$tickDiff = $tick - $this->lastTick;
 		if($tickDiff <= 0){
 			return;
@@ -327,7 +327,7 @@ abstract class BaseBattle {
 	 *
 	 * @param string $message
 	 */
-	public function broadcastMessage(string $message) {
+	public function broadcastMessage(string $message) : void {
 		RandomUtilities::mapArrayWithCallable($this->sessions, function(PlayerSession $session) use ($message) {
 			$session->getOwner()->sendMessage($message);
 		});
@@ -342,7 +342,7 @@ abstract class BaseBattle {
 	 * @param int $stay
 	 * @param int $fadeOut
 	 */
-	public function broadcastTitle(string $title, string $subtitle = "", int $fadeIn = -1, int $stay = -1, int $fadeOut = -1) {
+	public function broadcastTitle(string $title, string $subtitle = "", int $fadeIn = -1, int $stay = -1, int $fadeOut = -1) : void {
 		RandomUtilities::mapArrayWithCallable($this->sessions, function(PlayerSession $session) use ($title, $subtitle, $fadeIn, $stay, $fadeOut) {
 			$session->getOwner()->addTitle($title, $subtitle, $fadeIn, $stay, $fadeOut);
 		});
@@ -353,7 +353,7 @@ abstract class BaseBattle {
 	 *
 	 * @param string $message
 	 */
-	public function broadcastPopup(string $message) {
+	public function broadcastPopup(string $message) : void {
 		RandomUtilities::mapArrayWithCallable($this->sessions, function(PlayerSession $session) use ($message) {
 			$session->getOwner()->sendPopup($message);
 		});
@@ -364,7 +364,7 @@ abstract class BaseBattle {
 	 *
 	 * @param string $message
 	 */
-	public function broadcastTip(string $message) {
+	public function broadcastTip(string $message) : void {
 		RandomUtilities::mapArrayWithCallable($this->sessions, function(PlayerSession $session) use ($message) {
 			$session->getOwner()->sendTip($message);
 		});

@@ -37,7 +37,7 @@ abstract class BattlesEvent extends Event {
 	/**
 	 * Short hand method for calling the event
 	 */
-	final public function call() {
+	final public function call() : void {
 		$this->plugin->getServer()->getPluginManager()->callEvent($this);
 	}
 

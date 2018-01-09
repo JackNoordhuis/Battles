@@ -19,6 +19,7 @@
 namespace jacknoordhuis\battles\queue;
 
 use jacknoordhuis\battles\BattlesLoader;
+use jacknoordhuis\battles\queue\utils\exception\queue\DuplicateQueueIdentifierException;
 
 class QueueManager {
 
@@ -40,9 +41,15 @@ class QueueManager {
 	 * Add queue to the pool
 	 *
 	 * @param Queue $queue
+	 *
+	 * @throws DuplicateQueueIdentifierException
 	 */
-	public function addQueue(Queue $queue) {
-		$this->queuePool[$queue->getId()] = $queue;
+	public function addQueue(Queue $queue) : void {
+		if(!$this->queueExists($queue->getId())) {
+			$this->queuePool[$queue->getId()] = $queue;
+		} else {
+			throw new DuplicateQueueIdentifierException($queue);
+		}
 	}
 
 	/**

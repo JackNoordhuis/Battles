@@ -20,6 +20,7 @@ namespace jacknoordhuis\battles;
 
 use jacknoordhuis\battles\arena\ArenaManager;
 use jacknoordhuis\battles\battle\BattleManager;
+use jacknoordhuis\battles\queue\QueueManager;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
@@ -38,6 +39,9 @@ class BattlesLoader extends PluginBase {
 	/** @var BattleManager */
 	private $battleManager;
 
+	/** @var QueueManager */
+	private $queueManager;
+
 	/* Directory where all the important data is stored */
 	const DATA_DIRECTORY = "data";
 
@@ -48,6 +52,7 @@ class BattlesLoader extends PluginBase {
 		$this->loadConfigs();
 		$this->setArenaManager();
 		$this->setBattleManager();
+		$this->setQueueManager();
 
 		$this->getLogger()->info(TextFormat::AQUA . $this->getDescription()->getFullName() . TextFormat::GREEN . " by " . TextFormat::YELLOW . implode(TextFormat::GRAY . ", ", $this->getDescription()->getAuthors()) . TextFormat::GREEN . " has been enabled successfully!");
 	}
@@ -79,7 +84,7 @@ class BattlesLoader extends PluginBase {
 	 * Set the arena manager
 	 */
 	protected function setArenaManager() {
-		if(!$this->arenaManager instanceof ArenaManager) {
+		if(!($this->arenaManager instanceof ArenaManager)) {
 			$this->arenaManager = new ArenaManager($this);
 		}
 	}
@@ -88,8 +93,17 @@ class BattlesLoader extends PluginBase {
 	 * Set the battle manager
 	 */
 	protected function setBattleManager() {
-		if(!$this->battleManager instanceof BattleManager) {
+		if(!($this->battleManager instanceof BattleManager)) {
 			$this->battleManager = new BattleManager($this);
+		}
+	}
+
+	/**
+	 * Set the queue manager
+	 */
+	protected function setQueueManager() {
+		if(!($this->queueManager instanceof QueueManager)) {
+			$this->queueManager = new QueueManager($this);
 		}
 	}
 
@@ -99,6 +113,10 @@ class BattlesLoader extends PluginBase {
 
 	public function getBattleManager() : BattleManager {
 		return $this->battleManager;
+	}
+
+	public function getQueueManager() : QueueManager {
+		return $this->queueManager;
 	}
 
 }

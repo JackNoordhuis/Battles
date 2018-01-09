@@ -18,6 +18,8 @@
 
 namespace jacknoordhuis\battles\session;
 
+use jacknoordhuis\battles\battle\BaseBattle;
+use jacknoordhuis\battles\queue\Queue;
 use pocketmine\Player;
 
 class PlayerSession {
@@ -30,6 +32,9 @@ class PlayerSession {
 
 	/** @var int */
 	private $status = self::STATUS_LOADING;
+
+	/** @var string|null */
+	private $queueId = null;
 
 	/** @var string|null */
 	private $battleId = null;
@@ -46,44 +51,139 @@ class PlayerSession {
 		$this->owner = $owner;
 	}
 
+	/**
+	 * @return SessionManager
+	 */
 	public function getManager() : SessionManager {
 		return $this->manager;
 	}
 
+	/**
+	 * @return Player
+	 */
 	public function getOwner() : Player {
 		return $this->owner;
 	}
 
-	public function getStatus() {
+	/**
+	 * @return int
+	 */
+	public function getStatus() : int {
 		return $this->status;
 	}
 
+	/**
+	 * @return null|string
+	 */
+	public function getQueueId() {
+		return $this->queueId;
+	}
+
+	/**
+	 * @return null|string
+	 */
+	public function getBattleId() {
+		return $this->battleId;
+	}
+
+	/**
+	 * @return Queue|null
+	 */
+	public function getQueue() : ?Queue {
+		return $this->manager->getPlugin()->getQueueManager()->getQueue($this->queueId);
+	}
+
+	/**
+	 * @return BaseBattle|null
+	 */
+	public function getBattle() : ?BaseBattle {
+		return $this->manager->getPlugin()->getBattleManager()->getBattle($this->battleId);
+	}
+
+	/**
+	 * @param int $status
+	 *
+	 * @return bool
+	 */
 	protected function checkStatus(int $status) : bool {
 		return ($this->status & 0xF0) === $status;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isLoading() : bool {
 		return $this->status === self::STATUS_LOADING;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function inLobby() : bool {
 		return $this->checkStatus(self::STATUS_LOBBY);
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isWaiting() : bool {
 		return $this->status === self::STATUS_WAITING;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isPlaying() : bool {
 		return $this->checkStatus(self::STATUS_PLAYING);
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function inCountdown() : bool {
 		return $this->status === self::STATUS_COUNTDOWN;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function isQueued() : bool {
+		return  $this->inLobby() and $this->getQueue() instanceof Queue;
+	}
+
+	/**
+	 * @return bool
+	 */
 	public function inBattle() : bool {
-		return $this->isPlaying() and $this->battleId !== null;
+		return $this->isPlaying() and $this->getBattle() instanceof BaseBattle;
+	}
+
+	/**
+	 * Add the player to a queue
+	 *
+	 * @param Queue $queue
+	 */
+	public function addToQueue(Queue $queue) {
+		$this->queueId = $queue->getId();
+		$queue->queuePlayer($this);
+	}
+
+	/**
+	 * Add the player to a battle
+	 *
+	 * @param BaseBattle $battle
+	 */
+	public function addToBattle(BaseBattle $battle) {
+		$this->battleId = $battle->getId();
+	}
+
+	/**
+	 * Remove the player from their current queue
+	 */
+	public function removeFromQueue() {
+		if($this->isQueued()) {
+			$this->getQueue()->unqueuePlayer($this);
+		}
 	}
 
 	public function onQuit() {

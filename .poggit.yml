@@ -4,4 +4,9 @@ branches:
 projects:
   Battles:
     path: ""
+    libs:
+      - src: JackNoordhuis/framework/container
+        version: 5.6.5
+      - src: JackNoordhuis/framework/support
+        version: 5.6.5
 ...

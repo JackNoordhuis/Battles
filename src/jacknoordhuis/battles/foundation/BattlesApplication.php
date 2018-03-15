@@ -22,17 +22,19 @@ namespace jacknoordhuis\battles\foundation;
 
 use Illuminate\Container\Container;
 use Illuminate\Support\Arr;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use jacknoordhuis\battles\support\ServiceProvider;
 use jacknoordhuis\battles\BattlesLoader;
 use jacknoordhuis\battles\contracts\foundation\Application as ApplicationContract;
+use jacknoordhuis\battles\providers\BattleApplicationServiceProvider;
 
 /**
  * BattlesApplication class – where all the magic happens.
  *
  *
  *
- * A list of method to overwrite the return types of parent methods
- * to provide IDE auto-completion.
+ * A list of methods to overwrite the return types of to provide
+ * IDE auto-completion.
  *
  * @method BattlesLoader|mixed get(string $abstract)
  */
@@ -103,15 +105,24 @@ class BattlesApplication extends Container implements ApplicationContract {
 	}
 
 	/**
+	 * Register all of the base service providers.
+	 *
+	 * @return void
+	 */
+	protected function registerBaseServiceBindings() : void {
+		$this->register(new BattleApplicationServiceProvider($this));
+	}
+
+	/**
 	 * Register a service provider with the application.
 	 *
 	 * @param  ServiceProvider|string  $provider
 	 * @param  array  $options
 	 * @param  bool   $force
 	 *
-	 * @return ServiceProvider
+	 * @return ServiceProvider|BaseServiceProvider
 	 */
-	public function register($provider, $options = [], $force = false) : ServiceProvider {
+	public function register($provider, $options = [], $force = false) : BaseServiceProvider {
 		if(($registered = $this->getProvider($provider)) && ! $force) {
 			return $registered;
 		}

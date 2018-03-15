@@ -20,9 +20,9 @@ declare(strict_types=1);
 
 namespace jacknoordhuis\battles\providers;
 
-use Illuminate\Support\ServiceProvider;
 use jacknoordhuis\battles\arena\ArenaManager;
 use jacknoordhuis\battles\contracts\foundation\Application;
+use jacknoordhuis\battles\support\ServiceProvider;
 
 class BattleApplicationServiceProvider extends ServiceProvider {
 
@@ -43,9 +43,6 @@ class BattleApplicationServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register() : void {
-		$this->app->singleton(ArenaManager::class, function(Application $app) {
-			return new ArenaManager($app->plugin());
-		});
 	}
 
 }
